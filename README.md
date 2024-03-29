@@ -21,9 +21,9 @@ The library is also missing support for very many functions, and test coverage e
 
 `pnpm add drizzle-postgis`
 
-> **Note**
+> **NOTE**
 > Unfortunately drizzle-kit has a bug that causes custom types to be quoted.
-> In order to use this with migrations, you need to apply a patch.
+> In order to use this with migrations, you need to apply a [patch](https://github.com/Schmavery/drizzle-postgis/blob/main/patches/drizzle-kit%400.20.14.patch).
 > This is the only solution until this issue is fixed!
 > https://github.com/drizzle-team/drizzle-kit-mirror/issues/350
 
