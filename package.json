@@ -1,22 +1,12 @@
 {
-  "name": "@akashrajpurohit/ts-npm-template",
+  "name": "drizzle-postgis",
   "version": "0.0.0-development",
-  "description": "A project template to bootstrap NPM package with Typescript",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/AkashRajpurohit/ts-npm-template.git"
-  },
-  "homepage": "https://github.com/AkashRajpurohit/ts-npm-template",
-  "bugs": "https://github.com/AkashRajpurohit/ts-npm-template/issues",
-  "author": {
-    "name": "AkashRajpurohit",
-    "email": "me@akashrajpurohit.com",
-    "url": "https://akashrajpurohit.com"
-  },
+  "description": "A Drizzle extension/plugin to help work with PostGIS and GeoJSON",
   "keywords": [
-    "typescript-template",
-    "npm-boilerplate",
-    "semantic-release-boilerplate"
+    "postgis",
+    "geojson",
+    "drizzle",
+    "orm"
   ],
   "license": "MIT",
   "main": "./dist/index.js",
@@ -40,7 +30,7 @@
   ],
   "scripts": {
     "build": "NODE_ENV=production tsup",
-    "build:docs": "typedoc --out docs ./src/index.ts",
+    "build:docs": "typedoc --out docs ./src/index.ts --excludeInternal",
     "dev": "tsup --watch",
     "format": "biome check --apply ./src",
     "test": "vitest run",
@@ -53,6 +43,10 @@
     "@types/node": "^20.11.30",
     "@vitest/coverage-v8": "^1.4.0",
     "conventional-changelog-conventionalcommits": "^7.0.2",
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.20.14",
+    "drizzle-orm": "^0.30.5",
+    "postgres": "^3.4.4",
     "semantic-release": "^23.0.6",
     "tsup": "^8.0.2",
     "typedoc": "^0.25.12",
@@ -61,5 +55,13 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "dependencies": {
+    "wkx": "^0.5.0"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "drizzle-kit@0.20.14": "patches/drizzle-kit@0.20.14.patch"
+    }
   }
 }

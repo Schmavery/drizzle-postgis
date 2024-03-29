@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgis/postgis:16-3.4-alpine
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "postgres"]
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    ports:
+      - 127.0.0.1:5433:5432
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - ./src/test:/docker-entrypoint-initdb.d
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
