@@ -27,7 +27,7 @@
 import { fromDriver } from "~/models";
 import { type SQL, sql, type SQLWrapper } from "drizzle-orm";
 import { gisExtensionSchema } from "~/config";
-import * as GeoJSON from "~/geojsonTypes";
+import type * as GeoJSON from "~/geojsonTypes";
 
 /** Returns the area of a polygonal geometry.
  *
@@ -142,6 +142,23 @@ export function geomFromGeoJSON(
  * @group Geometry Outputs
  * @link https://postgis.net/docs/ST_GeoHash.html
  */
-export function geoHash(geom1: SQLWrapper, maxChars: number = 20): SQL<string> {
+export function geoHash(geom1: SQLWrapper, maxChars = 20): SQL<string> {
   return sql`${gisExtensionSchema}ST_GeoHash(${geom1}, ${maxChars})`;
+}
+
+/** Return a derived geometry with measure elements linearly interpolated between the start and end points.
+ *
+ * If the geometry has no measure dimension, one is added.
+ * If the geometry has a measure dimension, it is over-written with new values.
+ * Only LINESTRINGS and MULTILINESTRINGS are supported..
+ *
+ * @group Linear Referencing
+ * @link https://postgis.net/docs/manual-2.0/ST_AddMeasure.html
+ */
+export function addMeasure(
+  geom1: SQLWrapper,
+  measureStart: number,
+  measureEnd: number
+): SQL<string> {
+  return sql`${gisExtensionSchema}ST_AddMeasure(${geom1}, ${measureStart}, ${measureEnd})`;
 }

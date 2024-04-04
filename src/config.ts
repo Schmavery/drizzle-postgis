@@ -16,5 +16,7 @@ export let gisExtensionSchema = sql.raw("");
  * @link https://www.postgresql.org/docs/current/ddl-schemas.html#DDL-SCHEMAS-PATH
  */
 export function setPostGISSchema(schemaName: string) {
-  gisExtensionSchema = sql.raw(schemaName + ".");
+  gisExtensionSchema = schemaName.length
+    ? sql.raw(`${schemaName}.`)
+    : sql.empty();
 }

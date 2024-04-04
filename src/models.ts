@@ -2,7 +2,7 @@
 // Inspired by @link https://github.com/drizzle-team/drizzle-orm/discussions/123#discussioncomment-6075834
 import { sql } from "drizzle-orm";
 import { customType } from "drizzle-orm/pg-core";
-import * as GeoJSON from "~/geojsonTypes";
+import type * as GeoJSON from "~/geojsonTypes";
 
 import wkx from "wkx";
 
@@ -56,12 +56,12 @@ export function box2DfromDriver(value: string): GeoJSON.BBox {
   const match = value.match(
     /BOX\((?<xmin>[0-9\.]+),? ?(?<ymin>[0-9\.]+),? ?(?<xmax>[0-9\.]+),? ?(?<ymax>[0-9\.]+)\)/
   );
-  if (!match?.groups) throw new Error("Box2D parse error, value: " + value);
+  if (!match?.groups) throw new Error(`Box2D parse error, value: ${value}`);
   return [
-    parseFloat(match.groups.xmin),
-    parseFloat(match.groups.ymin),
-    parseFloat(match.groups.xmax),
-    parseFloat(match.groups.ymax),
+    Number.parseFloat(match.groups.xmin),
+    Number.parseFloat(match.groups.ymin),
+    Number.parseFloat(match.groups.xmax),
+    Number.parseFloat(match.groups.ymax),
   ];
 }
 

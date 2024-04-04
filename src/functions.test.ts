@@ -1,5 +1,5 @@
-import { Point, Polygon, functions as gis } from "~/index";
-import { rollbackTest } from "~/test/test-helpers";
+import { type Point, type Polygon, functions as gis } from "~/index";
+import { getFirst, rollbackTest } from "~/test/test-helpers";
 
 import * as schema from "~/test/schema";
 import * as TEST_DATA from "~/test/test-data";
@@ -132,4 +132,21 @@ rollbackTest("geoHash", async ({ db, expect }) => {
       shortHash: "s00j8",
     },
   ]);
+});
+
+rollbackTest("addMeasure", async ({ db, expect }) => {
+  await db.insert(schema.user).values({});
+
+  expect(
+    await db
+      .select({
+        text: gis.asText(
+          gis.addMeasure(gis.geomFromText("LINESTRING(1 0, 2 0, 4 0)"), 1, 4)
+        ),
+      })
+      .from(schema.user)
+      .then(getFirst)
+  ).toMatchObject({
+    text: "LINESTRING M (1 0 1,2 0 2,4 0 4)",
+  });
 });

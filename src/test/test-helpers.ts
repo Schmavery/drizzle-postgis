@@ -41,3 +41,7 @@ export function rollbackTest(
     ).rejects.toThrowError("Rollback")
   );
 }
+
+export function getFirst<T>(array: T[]) {
+  return array[0];
+}

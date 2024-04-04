@@ -1,14 +1,11 @@
 import { expect, test } from "vitest";
-import { execSync } from "child_process";
+import { execSync } from "node:child_process";
 import { rm, readdir } from "node:fs/promises";
-import { readFile } from "fs/promises";
-
-export function expectToBeDefined<T>(
-  value: T | undefined,
-  message?: string
-): asserts value is T {
-  expect(value, message).toBeDefined();
-}
+import { readFile } from "node:fs/promises";
+import { expectToBeDefined } from "~/test/test-helpers";
+import { config } from "~/index";
+import { geomFromGeoJSON } from "~/functions";
+import { PgDialect } from "drizzle-orm/pg-core";
 
 test("drizzle-kit generate:pg matches snapshot", async () => {
   await rm("./src/test/migrations", { recursive: true, force: true });
@@ -28,4 +25,17 @@ test("drizzle-kit generate:pg matches snapshot", async () => {
     "./test/schema-snapshot.sql"
   );
   await rm("./src/test/migrations", { recursive: true, force: true });
+});
+
+test("config schema name", async () => {
+  const pgDialect = new PgDialect();
+
+  config.setPostGISSchema("extensions");
+  expect(pgDialect.sqlToQuery(geomFromGeoJSON({})).sql).toBe(
+    "extensions.ST_GeomFromGeoJSON($1)"
+  );
+  config.setPostGISSchema("");
+  expect(pgDialect.sqlToQuery(geomFromGeoJSON({})).sql).toBe(
+    "ST_GeomFromGeoJSON($1)"
+  );
 });

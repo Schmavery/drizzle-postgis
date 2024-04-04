@@ -1,4 +1,4 @@
-import {
+import type {
   Box2D,
   LineString,
   MultiPoint,

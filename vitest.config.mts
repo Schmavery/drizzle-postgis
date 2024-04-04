@@ -13,6 +13,7 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "json-summary", "html"],
+      include: ["src/*"],
     },
     globalSetup: "globalSetup.ts",
     setupFiles: ["dotenv/config"],
