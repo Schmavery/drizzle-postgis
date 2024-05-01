@@ -62,7 +62,10 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Populate database
-        run: psql --help
+        run: >-
+          psql postgresql://postgres:example@127.0.0.1:5433/postgres
+          -f ${{ github.workspace }}/src/test/000_init.sql
+          -f ${{ github.workspace }}/src/test/schema_snapshot.sql
 
       - name: Test 🔫
         run: pnpm run test:coverage
