@@ -17,10 +17,21 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      drizzle-postgis-db:
+        image: "postgis/postgis:16-3.4-alpine"
+        ports:
+          - 5433:5432
+        env:
+          POSTGRES_PASSWORD: example
+        # volumes:
+        #   - "/home/runner:/docker-entrypoint-initdb.d"
+        options: "--mount=type=bind,src=${{ github.workspace }},dst=/docker-entrypoint-initdb.d --health-cmd 'pg_isready -d postgres'"
     steps:
       - name: Checkout 🧳
         uses: actions/checkout@v4
-
+      - name: print-workspace
+        run: "echo ${{ github.workspace }}"
       - name: Install Node.js 🔥
         uses: actions/setup-node@v4
         with:
@@ -53,9 +64,9 @@ jobs:
       - name: Test 🔫
         run: pnpm run test:coverage
 
-      - name: Report Coverage 📝
-        if: always() # Also generate the report if tests are failing
-        uses: davelosert/vitest-coverage-report-action@v2
+      # - name: Report Coverage 📝
+      #   if: always() # Also generate the report if tests are failing
+      #   uses: davelosert/vitest-coverage-report-action@v2
 
       # - name: Get Coverage for badge 🔢
       #   run: |
@@ -73,11 +84,11 @@ jobs:
       #     color: green
       #     namedLogo: vitest
 
-      - name: Upload Test Results ⏫
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: coverage/
+      # - name: Upload Test Results ⏫
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: coverage
+      #     path: coverage/
 
   release:
     # Release only when code is pushed to main branch and [skip ci] is not present
