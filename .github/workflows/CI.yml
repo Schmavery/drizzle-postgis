@@ -64,8 +64,7 @@ jobs:
       - name: Populate database
         run: >-
           psql postgresql://postgres:example@127.0.0.1:5433/postgres
-          -f ${{ github.workspace }}/src/test/000_init.sql
-          -f ${{ github.workspace }}/src/test/schema_snapshot.sql
+          -f ${{ github.workspace }}/src/test/schema-snapshot.sql
 
       - name: Test 🔫
         run: pnpm run test:coverage
