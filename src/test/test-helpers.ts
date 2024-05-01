@@ -27,7 +27,7 @@ const db = makeDB();
 export function rollbackTest(
   name: string,
   cb: (
-    ctx: TaskContext<Test<{}>> &
+    ctx: TaskContext<Test<unknown>> &
       TestContext & { db: PostgresJsDatabase<typeof schema> }
   ) => Promise<unknown>
 ) {
