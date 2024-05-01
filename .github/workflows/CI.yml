@@ -17,16 +17,16 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      drizzle-postgis-db:
-        image: "postgis/postgis:16-3.4-alpine"
-        ports:
-          - 5433:5432
-        env:
-          POSTGRES_PASSWORD: example
-        # volumes:
-        #   - "/home/runner:/docker-entrypoint-initdb.d"
-        options: "--mount=type=bind,src=${{ github.workspace }}/src/test,dst=/docker-entrypoint-initdb.d --health-cmd=pg_isready"
+    # services:
+    #   drizzle-postgis-db:
+    #     image: "postgis/postgis:16-3.4-alpine"
+    #     ports:
+    #       - 5433:5432
+    #     env:
+    #       POSTGRES_PASSWORD: example
+    #     # volumes:
+    #     #   - "/home/runner:/docker-entrypoint-initdb.d"
+    #     options: "--mount=type=bind,src=${{ github.workspace }}/src/test,dst=/docker-entrypoint-initdb.d --health-cmd=pg_isready"
     steps:
       - name: Checkout 🧳
         uses: actions/checkout@v4
