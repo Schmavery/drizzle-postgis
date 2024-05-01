@@ -24,14 +24,14 @@ jobs:
           - 5433:5432
         env:
           POSTGRES_PASSWORD: example
-        # volumes:
-        #   - "/home/runner:/docker-entrypoint-initdb.d"
-        # options: "--mount=type=bind,src=/home/runner/work/drizzle-postgis/src/test,dst=/docker-entrypoint-initdb.d --health-cmd=pg_isready"
+        options: "--health-cmd=pg_isready"
     steps:
       - name: Checkout 🧳
         uses: actions/checkout@v4
       - name: print-workspace
         run: "echo ${{ github.workspace }}"
+      # - name: install psql (for local runner)
+      #   run: apt update && DEBIAN_FRONTEND=noninteractive apt install -y -qq postgresql-client
       - name: Install Node.js 🔥
         uses: actions/setup-node@v4
         with:
