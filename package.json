@@ -41,7 +41,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.6.2",
     "@types/node": "^20.11.30",
-    "@vitest/coverage-v8": "^1.4.0",
+    "@vitest/coverage-v8": "^1.5.3",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.20.14",
@@ -51,7 +51,7 @@
     "tsup": "^8.0.2",
     "typedoc": "^0.25.12",
     "typescript": "^5.4.3",
-    "vitest": "^1.4.0"
+    "vitest": "^1.5.3"
   },
   "publishConfig": {
     "access": "public"
