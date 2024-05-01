@@ -21,8 +21,8 @@ services:
     volumes:
       - ./src/test:/docker-entrypoint-initdb.d
 
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080

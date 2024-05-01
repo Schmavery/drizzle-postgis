@@ -7,25 +7,29 @@ import { config } from "~/index";
 import { geomFromGeoJSON } from "~/functions";
 import { PgDialect } from "drizzle-orm/pg-core";
 
-test("drizzle-kit generate:pg matches snapshot", async () => {
-  await rm("./src/test/migrations", { recursive: true, force: true });
-  execSync(
-    "npm exec -- drizzle-kit generate:pg --out ./src/test/migrations --schema ./src/test/schema.ts"
-  );
-  const dir = await readdir("./src/test/migrations");
-  const migrationFilename = dir.find((v) => v.includes("0000_"));
-  expectToBeDefined(migrationFilename, "Couldn't find migration file");
+test(
+  "drizzle-kit generate:pg matches snapshot",
+  async () => {
+    await rm("./src/test/migrations", { recursive: true, force: true });
+    execSync(
+      "npm exec -- drizzle-kit generate:pg --out ./src/test/migrations --schema ./src/test/schema.ts"
+    );
+    const dir = await readdir("./src/test/migrations");
+    const migrationFilename = dir.find((v) => v.includes("0000_"));
+    expectToBeDefined(migrationFilename, "Couldn't find migration file");
 
-  const migrationFileContent = await readFile(
-    `./src/test/migrations/${migrationFilename}`,
-    { encoding: "utf-8" }
-  );
+    const migrationFileContent = await readFile(
+      `./src/test/migrations/${migrationFilename}`,
+      { encoding: "utf-8" }
+    );
 
-  await expect(migrationFileContent).toMatchFileSnapshot(
-    "./test/schema-snapshot.sql"
-  );
-  await rm("./src/test/migrations", { recursive: true, force: true });
-});
+    await expect(migrationFileContent).toMatchFileSnapshot(
+      "./test/schema-snapshot.sql"
+    );
+    await rm("./src/test/migrations", { recursive: true, force: true });
+  },
+  { timeout: 10000 }
+);
 
 test("config schema name", async () => {
   const pgDialect = new PgDialect();

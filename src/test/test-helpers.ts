@@ -1,6 +1,12 @@
-import { PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
+import { type PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { test, expect, TestContext, Test, TaskContext } from "vitest";
+import {
+  test,
+  expect,
+  type TestContext,
+  type Test,
+  type TaskContext,
+} from "vitest";
 
 import * as schema from "~/test/schema";
 
@@ -16,7 +22,7 @@ export function makeDB() {
   return drizzle(client, { schema });
 }
 
-let db = makeDB();
+const db = makeDB();
 
 export function rollbackTest(
   name: string,
@@ -26,18 +32,19 @@ export function rollbackTest(
   ) => Promise<unknown>
 ) {
   test(name, (ctx) =>
-    expect(() =>
-      db.transaction(async (db) => {
-        await cb({
-          db: db,
-          skip: ctx.skip,
-          expect: ctx.expect,
-          onTestFailed: ctx.onTestFailed,
-          onTestFinished: ctx.onTestFinished,
-          task: ctx.task,
-        });
-        db.rollback();
-      })
+    expect(
+      async () =>
+        await db.transaction(async (db) => {
+          await cb({
+            db: db,
+            skip: ctx.skip,
+            expect: ctx.expect,
+            onTestFailed: ctx.onTestFailed,
+            onTestFinished: ctx.onTestFinished,
+            task: ctx.task,
+          });
+          db.rollback();
+        })
     ).rejects.toThrowError("Rollback")
   );
 }
