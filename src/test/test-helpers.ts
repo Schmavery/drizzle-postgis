@@ -43,6 +43,7 @@ export function rollbackTest(
             onTestFinished: ctx.onTestFinished,
             task: ctx.task,
           });
+          console.log("Rolling back");
           db.rollback();
         })
     ).rejects.toThrowError("Rollback")

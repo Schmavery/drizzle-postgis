@@ -1,6 +1,6 @@
 {
   "name": "drizzle-postgis",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "A Drizzle extension/plugin to help work with PostGIS and GeoJSON",
   "keywords": [
     "postgis",
