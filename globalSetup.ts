@@ -5,7 +5,7 @@ export async function setup() {
   const res = execSync("docker ps", { encoding: "utf-8" });
   console.log(res);
   const containerRunning =
-    res.includes("drizzle-postgis-db") || res.includes("act-CI-test");
+    res.includes("postgis") || res.includes("act-CI-test");
   if (!containerRunning) {
     console.log("Starting up test DB...");
     execSync("docker compose up --wait", { encoding: "utf-8" });

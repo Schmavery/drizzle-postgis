@@ -26,7 +26,7 @@ jobs:
           POSTGRES_PASSWORD: example
         # volumes:
         #   - "/home/runner:/docker-entrypoint-initdb.d"
-        options: "--mount=type=bind,src=${{ github.workspace }},dst=/docker-entrypoint-initdb.d --health-cmd 'pg_isready -d postgres'"
+        options: "--mount=type=bind,src=${{ github.workspace }}/src/test,dst=/docker-entrypoint-initdb.d --health-cmd=pg_isready"
     steps:
       - name: Checkout 🧳
         uses: actions/checkout@v4
