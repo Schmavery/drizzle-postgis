@@ -18,7 +18,10 @@ export function expectToBeDefined<T>(
 }
 
 export function makeDB() {
-  const client = postgres(process.env.DRIZZLE_DB_URL!);
+  const client = postgres(
+    process.env.DRIZZLE_DB_URL ??
+      "postgresql://postgres:example@127.0.0.1:5433/postgres"
+  );
   return drizzle(client, { schema });
 }
 

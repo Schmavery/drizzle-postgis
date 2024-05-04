@@ -17,8 +17,10 @@ services:
     environment:
       POSTGRES_PASSWORD: example
     volumes:
-      - ./src/test/init.sql:/docker-entrypoint-initdb.d/000_init.sql
+      - ./src/test/000_init.sql:/docker-entrypoint-initdb.d/000_init.sql
       - ./src/test/schema-snapshot.sql:/docker-entrypoint-initdb.d/001_schema.sql
+      - type: tmpfs
+        target: /var/lib/postgresql/data
 
   # adminer:
   #   image: adminer
