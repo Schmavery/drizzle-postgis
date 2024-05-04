@@ -34,11 +34,9 @@ export function rollbackTest(
       TestContext & { db: PostgresJsDatabase<typeof schema> }
   ) => Promise<unknown>
 ) {
-  test(
-    name,
-    async (ctx) =>
-      // expect(
-      await (async () =>
+  test(name, (ctx) =>
+    expect(
+      (async () =>
         await db.transaction(async (db) => {
           await cb({
             db: db,
@@ -50,7 +48,7 @@ export function rollbackTest(
           });
           db.rollback();
         }))()
-    // ).rejects.toThrowError("Rollback")
+    ).rejects.toThrowError("Rollback")
   );
 }
 

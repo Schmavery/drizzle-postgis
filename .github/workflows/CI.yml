@@ -24,7 +24,11 @@ jobs:
           - 5433:5432
         env:
           POSTGRES_PASSWORD: example
-        options: "--health-cmd=pg_isready"
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout 🧳
         uses: actions/checkout@v4
@@ -69,9 +73,9 @@ jobs:
       - name: Test 🔫
         run: pnpm run test:coverage
 
-      # - name: Report Coverage 📝
-      #   if: always() # Also generate the report if tests are failing
-      #   uses: davelosert/vitest-coverage-report-action@v2
+      - name: Report Coverage 📝
+        if: always() # Also generate the report if tests are failing
+        uses: davelosert/vitest-coverage-report-action@v2
 
       # - name: Get Coverage for badge 🔢
       #   run: |
