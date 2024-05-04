@@ -18,7 +18,10 @@ export function expectToBeDefined<T>(
 }
 
 export function makeDB() {
-  const client = postgres(process.env.DRIZZLE_DB_URL!);
+  const client = postgres(
+    process.env.DRIZZLE_DB_URL ??
+      "postgresql://postgres:example@127.0.0.1:5433/postgres"
+  );
   return drizzle(client, { schema });
 }
 
@@ -27,13 +30,13 @@ const db = makeDB();
 export function rollbackTest(
   name: string,
   cb: (
-    ctx: TaskContext<Test<{}>> &
+    ctx: TaskContext<Test<unknown>> &
       TestContext & { db: PostgresJsDatabase<typeof schema> }
   ) => Promise<unknown>
 ) {
   test(name, (ctx) =>
     expect(
-      async () =>
+      (async () =>
         await db.transaction(async (db) => {
           await cb({
             db: db,
@@ -44,7 +47,7 @@ export function rollbackTest(
             task: ctx.task,
           });
           db.rollback();
-        })
+        }))()
     ).rejects.toThrowError("Rollback")
   );
 }

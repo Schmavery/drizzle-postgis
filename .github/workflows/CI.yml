@@ -17,10 +17,25 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      drizzle-postgis-db:
+        image: "postgis/postgis:16-3.4-alpine"
+        ports:
+          - 5433:5432
+        env:
+          POSTGRES_PASSWORD: example
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout 🧳
         uses: actions/checkout@v4
-
+      - name: print-workspace
+        run: "echo ${{ github.workspace }}"
+      # - name: install psql (for local runner)
+      #   run: apt update && DEBIAN_FRONTEND=noninteractive apt install -y -qq postgresql-client
       - name: Install Node.js 🔥
         uses: actions/setup-node@v4
         with:
@@ -50,6 +65,11 @@ jobs:
       - name: Install dependencies ⏬
         run: pnpm install --no-frozen-lockfile
 
+      - name: Populate database
+        run: >-
+          psql postgresql://postgres:example@127.0.0.1:5433/postgres
+          -f ${{ github.workspace }}/src/test/schema-snapshot.sql
+
       - name: Test 🔫
         run: pnpm run test:coverage
 
@@ -73,11 +93,11 @@ jobs:
       #     color: green
       #     namedLogo: vitest
 
-      - name: Upload Test Results ⏫
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: coverage/
+      # - name: Upload Test Results ⏫
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: coverage
+      #     path: coverage/
 
   release:
     # Release only when code is pushed to main branch and [skip ci] is not present
