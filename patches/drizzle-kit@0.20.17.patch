@@ -1,0 +1,53 @@
+diff --git a/bin.cjs b/bin.cjs
+index 9b923215fc29626bff0bb9cdab62fded04f95828..4c07c9a9ced9909011727df2e6a1d75d2e04ffd3 100755
+--- a/bin.cjs
++++ b/bin.cjs
+@@ -15493,13 +15493,19 @@ var init_sqlgenerator = __esm({
+       "interval day to second",
+       "interval hour to minute",
+       "interval hour to second",
+-      "interval minute to second"
++      "interval minute to second",
++      "citext",
++      "geometry",
++      "geography",
++      "box2d",
++      "box3d",
++      "geometry_dump"
+     ]);
+     isPgNativeType = (it) => {
+       if (pgNativeTypes.has(it))
+         return true;
+       const toCheck = it.replace(/ /g, "");
+-      return toCheck.startsWith("varchar(") || toCheck.startsWith("char(") || toCheck.startsWith("numeric(") || toCheck.startsWith("timestamp(") || toCheck.startsWith("intervalyear(") || toCheck.startsWith("intervalmonth(") || toCheck.startsWith("intervalday(") || toCheck.startsWith("intervalhour(") || toCheck.startsWith("intervalminute(") || toCheck.startsWith("intervalsecond(") || toCheck.startsWith("intervalyeartomonth(") || toCheck.startsWith("intervaldaytohour(") || toCheck.startsWith("intervaldaytominute(") || toCheck.startsWith("intervaldaytosecond(") || toCheck.startsWith("intervalhourtominute(") || toCheck.startsWith("intervalhourtosecond(") || toCheck.startsWith("intervalminutetosecond(") || /^(\w+)(\[\d*])+$/.test(it);
++      return toCheck.startsWith("geometry(") || toCheck.startsWith("geography(") || toCheck.startsWith("varchar(") || toCheck.startsWith("char(") || toCheck.startsWith("numeric(") || toCheck.startsWith("timestamp(") || toCheck.startsWith("intervalyear(") || toCheck.startsWith("intervalmonth(") || toCheck.startsWith("intervalday(") || toCheck.startsWith("intervalhour(") || toCheck.startsWith("intervalminute(") || toCheck.startsWith("intervalsecond(") || toCheck.startsWith("intervalyeartomonth(") || toCheck.startsWith("intervaldaytohour(") || toCheck.startsWith("intervaldaytominute(") || toCheck.startsWith("intervaldaytosecond(") || toCheck.startsWith("intervalhourtominute(") || toCheck.startsWith("intervalhourtosecond(") || toCheck.startsWith("intervalminutetosecond(") || /^(\w+)(\[\d*])+$/.test(it);
+     };
+     Convertor = class {
+     };
+diff --git a/utils.js b/utils.js
+index 865c79d44b422384a85470301b1ec80458964cf6..216ef396807a4c37f44cb40807f78a454a333650 100644
+--- a/utils.js
++++ b/utils.js
+@@ -5256,13 +5256,20 @@ var pgNativeTypes = /* @__PURE__ */ new Set([
+   "interval day to second",
+   "interval hour to minute",
+   "interval hour to second",
+-  "interval minute to second"
++  "interval minute to second",
++  "interval minute to second",
++  "citext",
++  "geometry",
++  "geography",
++  "box2d",
++  "box3d",
++  "geometry_dump"
+ ]);
+ var isPgNativeType = (it) => {
+   if (pgNativeTypes.has(it))
+     return true;
+   const toCheck = it.replace(/ /g, "");
+-  return toCheck.startsWith("varchar(") || toCheck.startsWith("char(") || toCheck.startsWith("numeric(") || toCheck.startsWith("timestamp(") || toCheck.startsWith("intervalyear(") || toCheck.startsWith("intervalmonth(") || toCheck.startsWith("intervalday(") || toCheck.startsWith("intervalhour(") || toCheck.startsWith("intervalminute(") || toCheck.startsWith("intervalsecond(") || toCheck.startsWith("intervalyeartomonth(") || toCheck.startsWith("intervaldaytohour(") || toCheck.startsWith("intervaldaytominute(") || toCheck.startsWith("intervaldaytosecond(") || toCheck.startsWith("intervalhourtominute(") || toCheck.startsWith("intervalhourtosecond(") || toCheck.startsWith("intervalminutetosecond(") || /^(\w+)(\[\d*])+$/.test(it);
++  return toCheck.startsWith("geometry(") || toCheck.startsWith("geography(") || toCheck.startsWith("varchar(") || toCheck.startsWith("char(") || toCheck.startsWith("numeric(") || toCheck.startsWith("timestamp(") || toCheck.startsWith("intervalyear(") || toCheck.startsWith("intervalmonth(") || toCheck.startsWith("intervalday(") || toCheck.startsWith("intervalhour(") || toCheck.startsWith("intervalminute(") || toCheck.startsWith("intervalsecond(") || toCheck.startsWith("intervalyeartomonth(") || toCheck.startsWith("intervaldaytohour(") || toCheck.startsWith("intervaldaytominute(") || toCheck.startsWith("intervaldaytosecond(") || toCheck.startsWith("intervalhourtominute(") || toCheck.startsWith("intervalhourtosecond(") || toCheck.startsWith("intervalminutetosecond(") || /^(\w+)(\[\d*])+$/.test(it);
+ };
+ var Convertor = class {
+ };
