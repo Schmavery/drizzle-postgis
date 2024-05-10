@@ -27,6 +27,43 @@ The library is also missing support for very many functions, and test coverage e
 > This is the only solution until this issue is fixed!
 > https://github.com/drizzle-team/drizzle-kit-mirror/issues/350
 
+### Patching drizzle-kit
+
+Due to a known issue with `drizzle-kit`, you may need to apply a patch to ensure compatibility with `drizzle-postgis`. Follow the steps below to patch the dependency:
+
+#### Step 1: Obtain the Patch File
+
+The patch file is located in repository under the `patches` directory: `patches/drizzle-kit@0.20.17.patch`
+
+You can copy the patch file content directly from the repository to you're local patches directory.
+
+#### Step 2: Apply the Patch
+
+If you're using pnpm, you can apply the patch by adding the following lines to your `package.json` file under the `pnpm` section:
+
+```json
+  "pnpm": {
+    "patchedDependencies": {
+      "drizzle-kit@0.20.17": "patches/drizzle-kit@0.20.17.patch"
+    }
+  }
+```
+
+This configuration tells pnpm to apply the specified patch to the `drizzle-kit@0.20.14` dependency.
+Note that `patches/drizzle-kit@0.20.17.patch` is the path to the patch file
+
+After updating your `package.json`, run `pnpm install` to install the patched dependency.
+
+#### Alternative: Manual Patching (not recommended)
+
+If you prefer not to modify your `package.json`, you can manually apply the patch using the `patch` command:
+
+1. Save the patch file content to a local file, e.g., `drizzle-kit.patch`.
+2. Navigate to the directory where `drizzle-kit` is installed (usually `node_modules/drizzle-kit`).
+3. Run the following command: `patch -p1 < /path/to/drizzle-kit.patch`
+
+This will apply the patch to the `drizzle-kit` dependency.
+
 ## ❓Troubleshooting
 
 If you're having trouble with Postgres complaining that the functions can't be found, try using `config.setPostGISSchema("<schema>")`
@@ -43,7 +80,8 @@ The documentation will get generated when the code is pushed to the `main` branc
 
 Please make sure to follow the [conventional commit messages](https://www.conventionalcommits.org/en/v1.0.0/) format while making changes. This helps in generating changelogs and versioning the package.
 
-## 🙏 Thanks to 
+## 🙏 Thanks to
+
 - 🚧 [@akashrajpurohit/ts-npm-template](https://akashrajpurohit.com/blog/building-and-publishing-typescript-npm-packages-a-stepbystep-guide/?ref=ts-npm-template-readme) - an opinionated bootstrap template to create NPM packages.
 - ⌨️ [Typescript](https://www.typescriptlang.org/) with [tsup](https://tsup.egoist.dev/) build tool.
 - ⚡️ [Vitest](https://vitest.dev/) - Unit Test Framework
