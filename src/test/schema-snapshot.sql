@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
-	"geometry" geometry,
+	"geometry" geometry(),
 	"geometryCollection" geometry(GeometryCollection),
 	"point" geometry(Point,4326),
 	"pointz" geometry(PointZ,4326),

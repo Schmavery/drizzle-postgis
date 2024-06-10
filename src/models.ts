@@ -31,9 +31,9 @@ const dataType = (options?: GeometryOptions) => {
       result += `,${options.srid}`;
     }
 
-    result += ")";
+    return `${result})`;
   }
-  return result;
+  return `${result}()`;
 };
 
 function toDriver(value: GeoJSON.Geometry) {

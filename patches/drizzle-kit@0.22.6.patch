@@ -1,0 +1,42 @@
+diff --git a/bin.cjs b/bin.cjs
+index c58238b0ebb370cf33e798321fbbc15f235a8af3..d66114051f81ec62f692c6a8f7e8822b8ac9edc7 100644
+--- a/bin.cjs
++++ b/bin.cjs
+@@ -22751,7 +22751,8 @@ var init_sqlgenerator = __esm({
+       "interval day to second",
+       "interval hour to minute",
+       "interval hour to second",
+-      "interval minute to second"
++      "interval minute to second",
++      "box2d",
+     ]);
+     isPgNativeType = (it) => {
+       if (pgNativeTypes.has(it))
+diff --git a/payload.js b/payload.js
+index 69202855be214724f21d7cad7a8402d565d63339..6b5cfae84dae3808c756bf28520bf579fecc4137 100644
+--- a/payload.js
++++ b/payload.js
+@@ -23369,7 +23369,8 @@ var init_sqlgenerator = __esm({
+       "interval day to second",
+       "interval hour to minute",
+       "interval hour to second",
+-      "interval minute to second"
++      "interval minute to second",
++      "box2d"
+     ]);
+     isPgNativeType = (it) => {
+       if (pgNativeTypes.has(it))
+diff --git a/payload.mjs b/payload.mjs
+index 5151f7a61f26c9a090b25b477b84e96af020f81e..319576c2d25efaa35a8ded3948d8a286c13ce55c 100644
+--- a/payload.mjs
++++ b/payload.mjs
+@@ -23375,7 +23375,8 @@ var init_sqlgenerator = __esm({
+       "interval day to second",
+       "interval hour to minute",
+       "interval hour to second",
+-      "interval minute to second"
++      "interval minute to second",
++      "box2d",
+     ]);
+     isPgNativeType = (it) => {
+       if (pgNativeTypes.has(it))
