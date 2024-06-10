@@ -33,7 +33,7 @@ const dataType = (options?: GeometryOptions) => {
 
     return `${result})`;
   }
-  return `${result}()`;
+  return `${result}(Geometry)`;
 };
 
 function toDriver(value: GeoJSON.Geometry) {
