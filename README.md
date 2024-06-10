@@ -15,27 +15,31 @@
 ## 🚸 Disclaimer
 
 I'm a GIS beginner, please let me know if you see anything problematic in the way this library is implemented.
-The library is also missing support for very many functions, and test coverage exists but is not complete.
+The library is also missing support for very many functions. PRs are very welcome, all I ask is that you add test coverage for any new functions :)
 
 ## 🎉 Installation
 
 `pnpm add drizzle-postgis`
 
-> **NOTE**
-> Unfortunately drizzle-kit has a bug that causes custom types to be quoted.
-> In order to use this with migrations, you need to apply a [patch](https://github.com/Schmavery/drizzle-postgis/blob/main/patches/drizzle-kit%400.20.14.patch).
-> This is the only solution until this issue is fixed!
-> https://github.com/drizzle-team/drizzle-kit-mirror/issues/350
+Patching drizzle-kit (See Troubleshooting for more info) is no longer required in most cases (unless you need to generate migrations with a box2d type).
 
-### Patching drizzle-kit
+## ❓Troubleshooting
 
-Due to a known issue with `drizzle-kit`, you may need to apply a patch to ensure compatibility with `drizzle-postgis`. Follow the steps below to patch the dependency:
+If you're having trouble with Postgres complaining that the functions can't be found, try using `config.setPostGISSchema("<schema>")`
+
+There's more information about how to use these functions here: https://postgis.net/docs/reference.html
+
+### NOTE for people using box2d
+
+> Unfortunately drizzle-kit has a bug that causes some custom types to be quoted. The only type in this library that is still affected (as of drizzle-kit 0.22.0) is `box2d`.
+> In order to use this with migrations, you need to apply a patch (see below).
+> This issue tracks this problem somewhat: https://github.com/drizzle-team/drizzle-kit-mirror/issues/350
 
 #### Step 1: Obtain the Patch File
 
-The patch file is located in repository under the `patches` directory: `patches/drizzle-kit@0.20.17.patch`
+The patch file is located in repository under the `patches` directory: `patches/drizzle-kit@<version>.patch`. (Replace <version> with your installed version of drizzle-kit).
 
-You can copy the patch file content directly from the repository to you're local patches directory.
+You can copy the patch file content directly from the repository to your local patches directory.
 
 #### Step 2: Apply the Patch
 
@@ -44,13 +48,13 @@ If you're using pnpm, you can apply the patch by adding the following lines to y
 ```json
   "pnpm": {
     "patchedDependencies": {
-      "drizzle-kit@0.20.17": "patches/drizzle-kit@0.20.17.patch"
+      "drizzle-kit@<version>": "patches/drizzle-kit@<version>.patch"
     }
   }
 ```
 
-This configuration tells pnpm to apply the specified patch to the `drizzle-kit@0.20.14` dependency.
-Note that `patches/drizzle-kit@0.20.17.patch` is the path to the patch file
+This configuration tells pnpm to apply the specified patch to the `drizzle-kit@<version>` dependency.
+Note that `patches/drizzle-kit@<version>.patch` is the path to the patch file
 
 After updating your `package.json`, run `pnpm install` to install the patched dependency.
 
@@ -63,12 +67,6 @@ If you prefer not to modify your `package.json`, you can manually apply the patc
 3. Run the following command: `patch -p1 < /path/to/drizzle-kit.patch`
 
 This will apply the patch to the `drizzle-kit` dependency.
-
-## ❓Troubleshooting
-
-If you're having trouble with Postgres complaining that the functions can't be found, try using `config.setPostGISSchema("<schema>")`
-
-There's more information about how to use these functions here: https://postgis.net/docs/reference.html
 
 ## 📚 Auto generate docs
 

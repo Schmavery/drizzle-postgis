@@ -1,6 +1,6 @@
 {
   "name": "drizzle-postgis",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A Drizzle extension/plugin to help work with PostGIS and GeoJSON",
   "keywords": [
     "postgis",
@@ -44,8 +44,8 @@
     "@vitest/coverage-v8": "^1.5.3",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "dotenv": "^16.4.5",
-    "drizzle-kit": "^0.20.14",
-    "drizzle-orm": "^0.30.5",
+    "drizzle-kit": "^0.22.6",
+    "drizzle-orm": "^0.31.2",
     "postgres": "^3.4.4",
     "semantic-release": "^23.0.6",
     "tsup": "^8.0.2",
@@ -61,7 +61,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "drizzle-kit@0.20.14": "patches/drizzle-kit@0.20.14.patch"
+      "drizzle-kit@0.22.6": "patches/drizzle-kit@0.22.6.patch"
     }
   }
 }

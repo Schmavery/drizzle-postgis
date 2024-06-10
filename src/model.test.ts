@@ -12,7 +12,8 @@ test(
   async () => {
     await rm("./src/test/migrations", { recursive: true, force: true });
     execSync(
-      "npm exec -- drizzle-kit generate:pg --out ./src/test/migrations --schema ./src/test/schema.ts"
+      "npm exec -- drizzle-kit generate --dialect postgresql --out ./src/test/migrations --schema ./src/test/schema.ts",
+      { encoding: "utf8" }
     );
     const dir = await readdir("./src/test/migrations");
     const migrationFilename = dir.find((v) => v.includes("0000_"));
