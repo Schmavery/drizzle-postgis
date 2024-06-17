@@ -18,6 +18,21 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
+    "./functions": {
+      "import": "./dist/functions.mjs",
+      "require": "./dist/functions.js",
+      "types": "./dist/functions.d.ts"
+    },
+    "./models": {
+      "import": "./dist/models.mjs",
+      "require": "./dist/models.js",
+      "types": "./dist/models.d.ts"
+    },
+    "./operators": {
+      "import": "./dist/operators.mjs",
+      "require": "./dist/operators.js",
+      "types": "./dist/operators.d.ts"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
