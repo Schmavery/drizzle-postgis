@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "user" (
+CREATE TABLE "user" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"geometry" geometry(Geometry),
 	"geometryCollection" geometry(GeometryCollection),

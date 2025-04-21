@@ -111,7 +111,7 @@ rollbackTest("isValidReason", async ({ db, expect }) => {
   ).toMatchObject([
     {
       valid: "Valid Geometry",
-      invalid: "Ring Self-intersection[1 1]",
+      invalid: "Self-intersection[1 2]",
     },
   ]);
 });

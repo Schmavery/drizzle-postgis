@@ -1,0 +1,38 @@
+diff --git a/api.js b/api.js
+index 44ccfaa28b23166c174db6aa8f82c204d5983518..c87c39f4bc9870e23a357ed4eb8c0893ee0dfaf8 100644
+--- a/api.js
++++ b/api.js
+@@ -12440,6 +12440,7 @@ var init_sqlgenerator = __esm({
+         "interval minute to second",
+         "char",
+         "vector",
++        "box2d",
+         "geometry"
+       ];
+       const arrayDefinitionRegex = /\[\d*(?:\[\d*\])*\]/g;
+diff --git a/api.mjs b/api.mjs
+index d52ed68b1a8da7e334b1d2e08b4298cd3a9597df..e24d6e327b99b6e41b13f6a1dbc861d54f97aa2e 100644
+--- a/api.mjs
++++ b/api.mjs
+@@ -12445,6 +12445,7 @@ var init_sqlgenerator = __esm({
+         "interval minute to second",
+         "char",
+         "vector",
++        "box2d",
+         "geometry"
+       ];
+       const arrayDefinitionRegex = /\[\d*(?:\[\d*\])*\]/g;
+diff --git a/bin.cjs b/bin.cjs
+index 70941f2a5aec6dcd1218e8a699fb5aafb4025f35..3887de7e2f1691e9e2f117d89c9850d11acba74f 100755
+--- a/bin.cjs
++++ b/bin.cjs
+@@ -24472,7 +24472,8 @@ var init_sqlgenerator = __esm({
+         "interval minute to second",
+         "char",
+         "vector",
+-        "geometry"
++        "box2d",
++        "geometry",
+       ];
+       const arrayDefinitionRegex = /\[\d*(?:\[\d*\])*\]/g;
+       const arrayDefinition = (type.match(arrayDefinitionRegex) ?? []).join("");

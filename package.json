@@ -36,7 +36,11 @@
     "./package.json": "./package.json"
   },
   "typesVersions": {
-    "*": {}
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
   },
   "files": [
     "dist/**/*",
@@ -59,8 +63,8 @@
     "@vitest/coverage-v8": "^1.5.3",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "dotenv": "^16.4.5",
-    "drizzle-kit": "^0.22.6",
-    "drizzle-orm": "^0.31.2",
+    "drizzle-kit": "^0.30.5",
+    "drizzle-orm": "^0.40.0",
     "postgres": "^3.4.4",
     "semantic-release": "^23.0.6",
     "tsup": "^8.0.2",
@@ -76,7 +80,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "drizzle-kit@0.22.6": "patches/drizzle-kit@0.22.6.patch"
+      "drizzle-kit@0.30.5": "patches/drizzle-kit@0.30.5.patch"
     }
   }
 }

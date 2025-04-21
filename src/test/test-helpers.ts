@@ -34,22 +34,25 @@ export function rollbackTest(
       TestContext & { db: PostgresJsDatabase<typeof schema> }
   ) => Promise<unknown>
 ) {
-  test(name, (ctx) =>
-    expect(
-      (async () =>
-        await db.transaction(async (db) => {
-          await cb({
-            db: db,
-            skip: ctx.skip,
-            expect: ctx.expect,
-            onTestFailed: ctx.onTestFailed,
-            onTestFinished: ctx.onTestFinished,
-            task: ctx.task,
-          });
-          db.rollback();
-        }))()
-    ).rejects.toThrowError("Rollback")
-  );
+  test(name, async (ctx) => {
+    await db
+      .transaction(async (db) => {
+        await cb({
+          db: db,
+          skip: ctx.skip,
+          expect: ctx.expect,
+          onTestFailed: ctx.onTestFailed,
+          onTestFinished: ctx.onTestFinished,
+          task: ctx.task,
+        });
+        throw new Error("Rollback");
+      })
+      .catch((err) => {
+        if (err.message !== "Rollback") {
+          throw err;
+        }
+      });
+  });
 }
 
 export function getFirst<T>(array: T[]) {
